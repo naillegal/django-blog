@@ -1,0 +1,22 @@
+{%extends 'layout.html'%}
+{%load static%}
+{%block main%}
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1>{{article.title}}</h1>
+
+                <p>{{article.description}}</p>
+
+                <h2 class="section-heading">{{article.created}}</h2>
+                    <img class="img-responsive" src="{{article.image.url}}" alt="">
+            </div>
+        </div>
+    </div>
+</article>
+
+{%endblock main%}
+    <hr>
+

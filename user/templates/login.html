@@ -1,0 +1,25 @@
+{% extends 'layout.html' %} 
+{% load static %} 
+{% block main %} 
+{% static 'img/home-bg.jpg' as home_bg %} 
+{% include 'includes/banner.html' with banner_image=home_bg banner_title='login sehifesi' banner_description='bura login sehifesidir' %}
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div>
+          <h2>Login</h2>
+        </div>
+        {% if invalid_credentials %}
+        <h1 class='text-danger'>Username ve ya sifre yanlisdir</h1>
+        {% endif %}
+        <form method="POST">
+          {% csrf_token %} 
+          {{form.as_div}}
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}
