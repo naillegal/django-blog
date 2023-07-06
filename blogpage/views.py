@@ -1,10 +1,18 @@
 from django.shortcuts import render
-from .models import Article
+from .models import Article,Author,Tag
 # Create your views here.
 
 def blogpage(request):
+    author_username=request.GET.get('author')
+    authors=Author.objects.all()
     articles=Article.objects.all()
-    return render(request,'blogpage.html', context={'articles': articles})
+    tags=Tag.objects.all()
+    tag_title=request.GET.get('tag')
+    if author_username:  
+        articles=articles.filter(author__user__username=author_username)
+    if tag_title:
+        articles=articles.filter(tags__title=tag_title)
+    return render(request,'blogpage.html', context={'articles': articles,'authors':authors,'tags':tags})     
 
 def blogdetail(request,id):
     article=Article.objects.get(id=id)
