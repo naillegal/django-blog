@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Article,Author,Tag
+from .forms import ArticleForm
 # Create your views here.
 
 def blogpage(request):
@@ -17,6 +18,20 @@ def blogpage(request):
 def blogdetail(request,id):
     article=Article.objects.get(id=id)
     return render(request,'blogdetail.html',context={'article': article})   
+
+
+def add_article(request):
+    if request.method == 'POST':
+        data=request.POST.copy()
+        form=ArticleForm(data=data,files=request.FILES)
+        if form.is_valid():
+            form.save(request.user.author)
+            return redirect('blog:blogpage')
+        return render(request,'article-form.html',{'form':form})
+    else:
+        form=ArticleForm
+        return render(request,'article-form.html',{'form': form})
+
 
 def example(request):
     users=[

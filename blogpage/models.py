@@ -22,7 +22,7 @@ class Article(models.Model):
     description=models.TextField()
     content=models.TextField()
     show=models.BooleanField(default=True)
-    view_count=models.IntegerField()
+    view_count=models.IntegerField(default=0)
     image=models.ImageField(null=True, blank=True)
     created=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(Author,on_delete=models.SET_NULL,blank=True,null=True)
